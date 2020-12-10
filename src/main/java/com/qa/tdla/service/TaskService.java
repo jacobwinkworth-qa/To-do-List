@@ -5,12 +5,14 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.qa.tdla.dto.TaskDTO;
 import com.qa.tdla.persistence.domain.Task;
 import com.qa.tdla.persistence.repo.TaskRepo;
 import com.qa.tdla.util.SpringBeanUtil;
 
+@Service
 public class TaskService {
 	
 	private TaskRepo repo;
