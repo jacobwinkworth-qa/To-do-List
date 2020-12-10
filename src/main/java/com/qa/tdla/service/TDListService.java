@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.qa.tdla.dto.TDListDTO;
@@ -14,6 +15,7 @@ import com.qa.tdla.persistence.repo.TaskRepo;
 import com.qa.tdla.util.SpringBeanUtil;
 
 @Service
+@Profile({"dev", "prod"})
 public class TDListService {
 	
 	private TDListRepo repo;
