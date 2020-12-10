@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.qa.tdla.persistence.domain.Task;
 
-
 @Repository
 @Profile({"dev", "prod"})
 public interface TaskRepo extends JpaRepository<Task, Long> {
