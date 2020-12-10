@@ -3,9 +3,9 @@ package com.qa.tdla.persistence.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.qa.tdla.persistence.domain.TDList;
+import com.qa.tdla.persistence.domain.TdList;
 
 @Repository
-public interface TDListRepo extends JpaRepository<TDList, Long> {
+public interface TdListRepo extends JpaRepository<TdList, Long> {
 
 }

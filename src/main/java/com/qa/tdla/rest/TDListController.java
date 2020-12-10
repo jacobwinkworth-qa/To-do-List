@@ -3,6 +3,7 @@ package com.qa.tdla.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,50 +17,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.tdla.dto.TDListDTO;
-import com.qa.tdla.persistence.domain.TDList;
-import com.qa.tdla.service.TDListService;
+import com.qa.tdla.dto.TdListDTO;
+import com.qa.tdla.persistence.domain.TdList;
+import com.qa.tdla.service.TdListService;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/list") // this is to further define the path
-public class TDListController {
+@Profile({"dev", "prod"})
+public class TdListController {
 
-	private TDListService service;
+	private TdListService service;
 
 	@Autowired
-	public TDListController(TDListService service) {
+	public TdListController(TdListService service) {
 		super();
 		this.service = service;
 	}
 
 	// Create
 	@PostMapping("/create")
-	public ResponseEntity<TDListDTO> create(@RequestBody TDList tdList) {
-		TDListDTO created = this.service.create(tdList);
+	public ResponseEntity<TdListDTO> create(@RequestBody TdList tdList) {
+		TdListDTO created = this.service.create(tdList);
 		return new ResponseEntity<>(created, HttpStatus.CREATED);
 	}
 
 	// read all
 	@GetMapping("/read")
-	public ResponseEntity<List<TDListDTO>> read() {
+	public ResponseEntity<List<TdListDTO>> read() {
 		return ResponseEntity.ok(this.service.readAll());
 	}
 
 	// read one
 	@GetMapping("/read/{id}")
-	public ResponseEntity<TDListDTO> readOne(@PathVariable Long id) {
+	public ResponseEntity<TdListDTO> readOne(@PathVariable Long id) {
 		return ResponseEntity.ok(this.service.readOne(id));
 	}
 
 	// update
 	@PutMapping("/update/{id}")
-	public ResponseEntity<TDListDTO> update(@PathVariable Long id, @RequestBody TDListDTO tdListDTO) {
+	public ResponseEntity<TdListDTO> update(@PathVariable Long id, @RequestBody TdListDTO tdListDTO) {
 		return new ResponseEntity<>(this.service.update(tdListDTO, id), HttpStatus.ACCEPTED);
 	}
 
 	// Delete one
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<TDListDTO> delete(@PathVariable Long id) {
+	public ResponseEntity<TdListDTO> delete(@PathVariable Long id) {
 		return this.service.delete(id) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
 	}

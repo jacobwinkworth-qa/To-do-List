@@ -6,13 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.context.annotation.Profile;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity // classes that represent tables in our DB
 @Data
 @NoArgsConstructor
-public class TDList {
+@Profile({"dev", "prod"})
+public class TdList {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +24,13 @@ public class TDList {
 	@NotNull
 	private String topic;
 
-	public TDList(Long id, String topic) {
+	public TdList(Long id, String topic) {
 		super();
 		this.id = id;
 		this.topic = topic;
 	}
 	
-	public TDList(String topic) {
+	public TdList(String topic) {
 		super();
 		this.topic = topic;
 	}
