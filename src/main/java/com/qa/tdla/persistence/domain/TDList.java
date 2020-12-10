@@ -30,7 +30,7 @@ public class TdList {
 	@NotNull
 	private String topic;
 	
-	@OneToMany(mappedBy = "tdlist", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "tdList", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Task> tasks;
 
