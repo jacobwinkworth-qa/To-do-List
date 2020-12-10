@@ -53,8 +53,8 @@ public class TDListController {
 
 	// update
 	@PutMapping("/update/{id}")
-	public ResponseEntity<TDListDTO> update(@PathVariable Long id, @RequestBody TDListDTO carDto) {
-		return new ResponseEntity<>(this.service.update(carDto, id), HttpStatus.ACCEPTED);
+	public ResponseEntity<TDListDTO> update(@PathVariable Long id, @RequestBody TDListDTO tdListDTO) {
+		return new ResponseEntity<>(this.service.update(tdListDTO, id), HttpStatus.ACCEPTED);
 	}
 
 	// Delete one
