@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.tdla.dto.TDListDTO;
+import com.qa.tdla.dto.TdListDTO;
 import com.qa.tdla.persistence.domain.TDList;
 import com.qa.tdla.persistence.repo.TDListRepo;
 import com.qa.tdla.persistence.repo.TaskRepo;
@@ -26,27 +26,27 @@ public class TDListService {
 		this.mapper = mapper;
 	}
 	
-	private TDListDTO mapToDTO(TDList tdList) {
-		return this.mapper.map(tdList, TDListDTO.class);		
+	private TdListDTO mapToDTO(TDList tdList) {
+		return this.mapper.map(tdList, TdListDTO.class);		
 	}
 	
 	// create
-	public TDListDTO create(TDList task) {
+	public TdListDTO create(TDList task) {
 		return this.mapToDTO(this.repo.save(task));
 	}
 	
 	// read all
-	public List<TDListDTO> readAll() {
+	public List<TdListDTO> readAll() {
 		return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
 	
 	// read one method
-	public TDListDTO readOne(Long id) {
+	public TdListDTO readOne(Long id) {
 		return this.mapToDTO(this.repo.findById(id).orElseThrow());
 	}
 	
 	// update
-	public TDListDTO update(TDListDTO tdListDTO, Long id) {
+	public TdListDTO update(TdListDTO tdListDTO, Long id) {
 		TDList toUpdate = this.repo.findById(id).orElseThrow();
 		toUpdate.setTopic(tdListDTO.getTopic());
 		SpringBeanUtil.mergeNotNull(tdListDTO, toUpdate);
