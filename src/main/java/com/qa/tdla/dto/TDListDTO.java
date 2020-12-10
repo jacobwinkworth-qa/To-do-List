@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Profile({"dev", "prod"})
-public class TdListDTO {
+public class TDListDTO {
 	
 	private Long id;
 	private String topic;
