@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.tdla.dto.TDListDTO;
 import com.qa.tdla.dto.TdListDTO;
 import com.qa.tdla.persistence.domain.TdList;
 import com.qa.tdla.service.TdListService;
+
 
 @RestController
 @CrossOrigin
@@ -35,7 +35,7 @@ public class TdListController {
 		this.service = service;
 	}
 
-	// Create
+	// create
 	@PostMapping("/create")
 	public ResponseEntity<TdListDTO> create(@RequestBody TdList tdList) {
 		TdListDTO created = this.service.create(tdList);
@@ -60,7 +60,7 @@ public class TdListController {
 		return new ResponseEntity<>(this.service.update(tdListDTO, id), HttpStatus.ACCEPTED);
 	}
 
-	// Delete one
+	// delete one
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<TdListDTO> delete(@PathVariable Long id) {
 		return this.service.delete(id) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)

@@ -6,12 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.context.annotation.Profile;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity // classes that represent tables in our DB
 @Data
 @NoArgsConstructor
+@Profile({"dev", "prod"})
 public class Task {
 	
 	@Id

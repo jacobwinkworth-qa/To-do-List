@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import com.qa.tdla.dto.TDListDTO;
 import com.qa.tdla.dto.TdListDTO;
-import com.qa.tdla.persistence.domain.TDList;
 import com.qa.tdla.persistence.domain.TdList;
 import com.qa.tdla.persistence.repo.TdListRepo;
 import com.qa.tdla.util.SpringBeanUtil;
@@ -54,7 +52,6 @@ public class TdListService {
 		toUpdate.setTopic(tdListDTO.getTopic());
 		SpringBeanUtil.mergeNotNull(tdListDTO, toUpdate);
 		return this.mapToDTO(this.repo.save(toUpdate));
-
 	}
 	
 	// delete
