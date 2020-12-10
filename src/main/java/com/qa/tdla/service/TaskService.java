@@ -37,7 +37,7 @@ public class TaskService {
 		return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
 	
-	// read one method
+	// read one
 	public TaskDTO readOne(Long id) {
 		return this.mapToDTO(this.repo.findById(id).orElseThrow());
 	}
@@ -53,7 +53,7 @@ public class TaskService {
 	
 	// delete
 	public boolean delete(Long id) {
-		this.repo.deleteById(id);// true
-		return !this.repo.existsById(id);// true
+		this.repo.deleteById(id);
+		return !this.repo.existsById(id);
 	}
 }

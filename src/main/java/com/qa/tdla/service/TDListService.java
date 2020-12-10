@@ -9,47 +9,48 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.qa.tdla.dto.TDListDTO;
+import com.qa.tdla.dto.TdListDTO;
 import com.qa.tdla.persistence.domain.TDList;
-import com.qa.tdla.persistence.repo.TDListRepo;
-import com.qa.tdla.persistence.repo.TaskRepo;
+import com.qa.tdla.persistence.domain.TdList;
+import com.qa.tdla.persistence.repo.TdListRepo;
 import com.qa.tdla.util.SpringBeanUtil;
 
 @Service
 @Profile({"dev", "prod"})
-public class TDListService {
+public class TdListService {
 	
-	private TDListRepo repo;
+	private TdListRepo repo;
 	private ModelMapper mapper;
 	
 	@Autowired
-	public TDListService(TDListRepo repo, ModelMapper mapper) {
+	public TdListService(TdListRepo repo, ModelMapper mapper) {
 		super();
 		this.repo = repo;
 		this.mapper = mapper;
 	}
 	
-	private TDListDTO mapToDTO(TDList tdList) {
-		return this.mapper.map(tdList, TDListDTO.class);		
+	private TdListDTO mapToDTO(TdList tdList) {
+		return this.mapper.map(tdList, TdListDTO.class);		
 	}
 	
 	// create
-	public TDListDTO create(TDList task) {
+	public TdListDTO create(TdList task) {
 		return this.mapToDTO(this.repo.save(task));
 	}
 	
 	// read all
-	public List<TDListDTO> readAll() {
+	public List<TdListDTO> readAll() {
 		return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
 	
-	// read one method
-	public TDListDTO readOne(Long id) {
+	// read one
+	public TdListDTO readOne(Long id) {
 		return this.mapToDTO(this.repo.findById(id).orElseThrow());
 	}
 	
 	// update
-	public TDListDTO update(TDListDTO tdListDTO, Long id) {
-		TDList toUpdate = this.repo.findById(id).orElseThrow();
+	public TdListDTO update(TdListDTO tdListDTO, Long id) {
+		TdList toUpdate = this.repo.findById(id).orElseThrow();
 		toUpdate.setTopic(tdListDTO.getTopic());
 		SpringBeanUtil.mergeNotNull(tdListDTO, toUpdate);
 		return this.mapToDTO(this.repo.save(toUpdate));
