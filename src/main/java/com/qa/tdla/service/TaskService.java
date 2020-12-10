@@ -7,6 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.util.SpringBeanUtil;
+import com.qa.tdla.dto.TaskDTO;
+import com.qa.tdla.persistence.domain.Task;
+import com.qa.tdla.persistence.repo.TaskRepo;
 
 public class TaskService {
 	
