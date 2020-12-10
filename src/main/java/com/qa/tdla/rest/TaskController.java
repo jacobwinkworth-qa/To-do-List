@@ -34,7 +34,7 @@ public class TaskController {
 		this.service = service;
 	}
 
-	// Create
+	// create
 	@PostMapping("/create")
 	public ResponseEntity<TaskDTO> create(@RequestBody Task task) {
 		TaskDTO created = this.service.create(task);
@@ -59,7 +59,7 @@ public class TaskController {
 		return new ResponseEntity<>(this.service.update(taskDTO, id), HttpStatus.ACCEPTED);
 	}
 
-	// Delete one
+	// delete one
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<TaskDTO> delete(@PathVariable Long id) {
 		return this.service.delete(id) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
