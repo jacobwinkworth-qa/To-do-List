@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.demo.util.SpringBeanUtil;
 import com.qa.tdla.dto.TaskDTO;
 import com.qa.tdla.persistence.domain.Task;
 import com.qa.tdla.persistence.repo.TaskRepo;
+import com.qa.tdla.util.SpringBeanUtil;
 
 public class TaskService {
 	
@@ -23,7 +23,7 @@ public class TaskService {
 		this.mapper = mapper;
 	}
 	
-	private TaskDTO mapToDto(Task task) {
+	private TaskDTO mapToDTO(Task task) {
 		return this.mapper.map(task, TaskDTO.class);		
 	}
 	
