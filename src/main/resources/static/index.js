@@ -1,76 +1,50 @@
-// (function($) {
-//     'use strict';
-//     $(function() {
-//     var todoListItem = $('.todo-list');
-//     var todoListInput = $('.todo-list-input');
-//     $('.todo-list-add-btn').on("click", function(event) {
-//     event.preventDefault();
-    
-//     var item = $(this).prevAll('.todo-list-input').val();
-    
-//     if (item) {
-//         todoListItem.append("<li> <div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox' />" + item + "<i class='input-helper'></i></label></div><i class='remove mdi mdi-close-circle-outline'></i></li>");
-//         todoListInput.val("");
-//     }
-    
-//     });
-    
-//     todoListItem.on('change', '.checkbox', function() {
-//     if ($(this).attr('checked')) {
-//     $(this).removeAttr('checked');
-//     } else {
-//     $(this).attr('checked', 'checked');
-//     }
-    
-//     $(this).closest("li").toggleClass('completed');
-    
-//     });
-    
-//     todoListItem.on('click', '.remove', function() {
-//     $(this).parent().remove();
-//     });
-    
-//     });
-// })(jQuery);
-
 var todoListItem = document.querySelector('.todo-list');
 var todoListInput = document.querySelector('.todo-list-input');
-
-function prevAll(element) {
-    var result = [];
-
-    while (element = element.previousElementSibling)
-        result.push(element);
-    return result;
-}
 
 document
 .querySelector('.todo-list-add-btn')
 .addEventListener("click", function(event) {
     event.preventDefault();
 
-    var item = prevAll('.to-do-list');  // post
+    var newItem = todoListInput.value;  // post
 
-    if (item) {
-        let listItem = document.createElement("li");
-        listItem.innerHTML = "<div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox' />"
-        + item + "<i class='input-helper'></i></label></div><i class='remove mdi mdi-close-circle-outline'></i><";
-        todoListItem.append(listItem);
+    if (newItem) {
+        let newListItem = document.createElement("li");
+        newListItem.innerHTML = "<div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox' />"
+        + newItem + "<i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
+        todoListItem.append(newListItem);
         todoListInput.value = ("");
+        setCheckboxListener(newListItem.querySelector('.checkbox'));
+        setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
     }
 });
 
-todoListItem.addEventListener('change', '.checkbox', function () {
-    if (this.attr('checked')) {
-        this.removeAttribute('checked');
-    } else {
-        this.attribute('checked', 'checked');
-    }
-    this.closest("li").toggleClass('completed');
+function setCheckboxListener(item) {
+
+    item.addEventListener('change', function () {
+        if (this.getAttribute('checked')) {
+            this.removeAttribute('checked');
+        } else {
+            this.setAttribute('checked', 'checked');
+        }
+        this.closest("li").classList.toggle('completed');
+    });
+
+}
+
+function setRemoveListener(item) {
+    
+    item.addEventListener('click', function() {
+        this.parentElement.remove();
+    });
+
+}
+
+todoListItem.querySelectorAll('.checkbox').forEach(item => {
+    setCheckboxListener(item);
 });
 
-todoListItem.addEventListener('click', '.remove', function() {
-    this.parent().remove();
+todoListItem.querySelectorAll('.fa-trash-alt').forEach(item => {
+    setRemoveListener(item);
 });
-
 

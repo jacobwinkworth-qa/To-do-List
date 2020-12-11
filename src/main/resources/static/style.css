@@ -196,7 +196,7 @@ body {
     margin-right: 15px
 }
 
-.list-wrapper .remove {
+.list-wrapper .fas {
     cursor: pointer;
     font-size: 1.438rem;
     font-weight: 600;
@@ -383,11 +383,11 @@ input[type="checkbox"] {
 }
 
 .text-primary,
-.list-wrapper .completed .remove {
+.list-wrapper .completed .fas {
     color: #405189 !important
 }
 
-.list-wrapper .remove {
+.list-wrapper .fas {
     cursor: pointer;
     font-size: 1.438rem;
     font-weight: 600;
@@ -398,9 +398,10 @@ input[type="checkbox"] {
 }
 
 .ml-auto,
-.list-wrapper .remove,
+.list-wrapper .fa-edit,
 .mx-auto {
-    margin-left: auto !important
+    margin-left: auto !important;
+    margin-right: 10px
 }
 
 .mdi-close-circle-outline:before {
