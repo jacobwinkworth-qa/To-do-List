@@ -33,7 +33,7 @@ function setCheckboxListener(item) {
 }
 
 function setRemoveListener(item) {
-    
+
     item.addEventListener('click', function() {
         this.parentElement.remove();
     });
