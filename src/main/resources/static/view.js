@@ -1,3 +1,5 @@
+const params = new URLSearchParams(window.location.search);
+
 var todoListItem = document.querySelector('.todo-list');
 var todoListInput = document.querySelector('.todo-list-input');
 
@@ -16,7 +18,22 @@ document
         todoListInput.value = ("");
         setCheckboxListener(newListItem.querySelector('.checkbox'));
         setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
+
+        // data
+        let task = {
+            "name": newItem,
+        }
+
+        postData('http://localhost:8081/task/create/', task);
     }
+});
+
+todoListItem.querySelectorAll('.checkbox').forEach(item => {
+    setCheckboxListener(item);
+});
+
+todoListItem.querySelectorAll('.fa-trash-alt').forEach(item => {
+    setRemoveListener(item);
 });
 
 function setCheckboxListener(item) {
@@ -33,18 +50,36 @@ function setCheckboxListener(item) {
 }
 
 function setRemoveListener(item) {
-    
+
     item.addEventListener('click', function() {
         this.parentElement.remove();
+        deleteData('http://localhost:8081/task/delete/', 1)
     });
 
 }
 
-todoListItem.querySelectorAll('.checkbox').forEach(item => {
-    setCheckboxListener(item);
-});
+function postData(url, data) {
 
-todoListItem.querySelectorAll('.fa-trash-alt').forEach(item => {
-    setRemoveListener(item);
-});
+    fetch(url, {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
 
+function deleteData(url, id) {
+    fetch(url + id, {
+        method: 'DELETE'
+    })
+    .then(res => res.text())
+    .then(res => console.log(res))
+}
