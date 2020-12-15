@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.qa.tdla.dto.TaskDTO;
+import com.qa.tdla.dto.TdListDTO;
 import com.qa.tdla.persistence.domain.Task;
+import com.qa.tdla.persistence.domain.TdList;
 import com.qa.tdla.persistence.repo.TaskRepo;
 import com.qa.tdla.util.SpringBeanUtil;
 
@@ -48,6 +50,15 @@ public class TaskService {
 	
 	// update
 	public TaskDTO update(TaskDTO taskDto, Long id) {
+		Task toUpdate = this.repo.findById(id).orElseThrow();
+		toUpdate.setName(taskDto.getName());
+		SpringBeanUtil.mergeNotNull(taskDto, toUpdate);
+		return this.mapToDTO(this.repo.save(toUpdate));
+
+	}
+	
+	// patch
+	public TaskDTO partialUpdateName(TaskDTO taskDto, Long id) {
 		Task toUpdate = this.repo.findById(id).orElseThrow();
 		toUpdate.setName(taskDto.getName());
 		SpringBeanUtil.mergeNotNull(taskDto, toUpdate);

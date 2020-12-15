@@ -54,6 +54,14 @@ public class TdListService {
 		return this.mapToDTO(this.repo.save(toUpdate));
 	}
 	
+	// patch
+	public TdListDTO partialUpdateTopic(TdListDTO tdListDTO, Long id) {
+		TdList toUpdate = this.repo.findById(id).orElseThrow();
+		toUpdate.setTopic(tdListDTO.getTopic());
+		SpringBeanUtil.mergeNotNull(tdListDTO, toUpdate);
+		return this.mapToDTO(this.repo.save(toUpdate));
+	}
+	
 	// delete
 	public boolean delete(Long id) {
 		this.repo.deleteById(id);
