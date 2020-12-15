@@ -101,7 +101,7 @@ setEditListener = (item) => {
 
         partialUpdateData(PARTIAL_UPDATE_URL, id, data);
 
-        this.parentElement.querySelector('a').innerHTML = topic;
+        this.parentElement.querySelector('a').textContent = topic;
     });
 
 }

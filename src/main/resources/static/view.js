@@ -28,8 +28,10 @@ postData = (url, data) => {
 
         let newListItem = document.createElement("li");
         newListItem.setAttribute('id', data['id']);
-        newListItem.innerHTML = "<div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'> "
-        + data['name'] + " <i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
+        newListItem.innerHTML = "<div class='form-check'>" +
+        "<label class='form-check-label'><input class='checkbox' type='checkbox'>" + data['name'] + 
+        "<i class='input-helper'></i></label></div>" + 
+        "<i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
         todoListItem.append(newListItem);
 
         setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
@@ -51,8 +53,10 @@ getData = (url) => {
 
             let newListItem = document.createElement("li");
             newListItem.setAttribute('id', tasks[key]['id']);
-            newListItem.innerHTML = "<div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'> "
-            + tasks[key]['name'] + " <i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
+            newListItem.innerHTML = "<div class='form-check'>" + 
+            "<label class='form-check-label'><input class='checkbox' type='checkbox'>" + tasks[key]['name'] + 
+            "<i class='input-helper'></i></label></div> " + 
+            "<i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
             todoListItem.append(newListItem);
 
             setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
@@ -121,7 +125,10 @@ setEditListener = (item) => {
 
         partialUpdateData(PARTIAL_UPDATE_URL, id, data);
 
-        this.parentElement.querySelector('.form-check-label').innerHTML = name + "<i class='input-helper'></i>";
+        console.log(this.parentElement.querySelector('.form-check-label').textContent);
+
+        let label = this.parentElement.querySelector('.form-check-label');
+        label.childNodes[1].textContent = name;
     });
 }
 
