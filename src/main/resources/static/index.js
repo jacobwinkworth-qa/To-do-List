@@ -1,8 +1,10 @@
+// base URL
+const BASE_URL = "http://localhost:8081/";
 // CRUD URLs
-const CREATE_URL = "http://localhost:8081/list/create/";
-const READ_URL = "http://localhost:8081/list/read";
-// const UPDATE_URL
-const DELETE_URL = "http://localhost:8081/list/delete/"
+const CREATE_URL = BASE_URL + "list/create/";
+const READ_URL = BASE_URL + "list/read/";
+const PARTIAL_UPDATE_URL = BASE_URL + "list/patch/"
+const DELETE_URL = BASE_URL + "list/delete/"
 
 const params = new URLSearchParams(window.location.search);
 
@@ -26,11 +28,12 @@ postData = (url, data) => {
 
         let newListItem = document.createElement("li");
         newListItem.setAttribute('id', data['id']);
-        newListItem.innerHTML = "<div class='form-check'> " + data['topic'] + " <i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>"
+        let redirect = BASE_URL + "view.html?id=" + data['id'];
+        newListItem.innerHTML = "<div class='form-check'> <a href='"+redirect+"'>" + data['topic'] + "</a> </div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
         todoListItem.append(newListItem);
-        todoListInput.value = ("");
-        setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
 
+        setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
+        setEditListener(newListItem.querySelector('.fa-edit'));
     } )
 }
 
@@ -42,14 +45,35 @@ getData = (url) => {
     .then(function(data) {
         for (let key in data) {
             let newListItem = document.createElement("li");
-            newListItem.innerHTML = "<div class='form-check'> " + data[key]['topic'] + " <i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>"
+            let id = data[key]['id'];
+            newListItem.setAttribute('id', id);
+            let redirect = BASE_URL + "view.html?id=" + id;
+            newListItem.innerHTML = "<div class='form-check'> <a href='"+redirect+"'>" + data[key]['topic'] + "</a> </div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>"
             todoListItem.append(newListItem);
+
+            setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
+            setEditListener(newListItem.querySelector('.fa-edit'));
         };
     })
 
 }
 
-// update
+// (partial) update
+partialUpdateData = (url, id, data) => {
+
+    settings ={
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    }
+
+    fetch(url + id, settings)
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+}
 
 // delete
 deleteData = (url, id) => {
@@ -59,6 +83,26 @@ deleteData = (url, id) => {
     })
     .then(res => res.text())
     .then(res => console.log(res))
+
+}
+
+// item listeners
+setEditListener = (item) => {
+
+    item.addEventListener('click', function() {
+
+        let topic = prompt("Please enter a new list name");
+
+        data = {
+            "topic": topic,
+        }
+        
+        let id = this.parentElement.id;
+
+        partialUpdateData(PARTIAL_UPDATE_URL, id, data);
+
+        this.parentElement.querySelector('a').innerHTML = topic;
+    });
 
 }
 
@@ -75,7 +119,7 @@ setRemoveListener = (item) => {
 // populate list
 getData(READ_URL);
 
-// set listeners
+// button listener
 document
 .querySelector('.todo-list-add-btn')
 .addEventListener("click", function(event) {
@@ -91,10 +135,6 @@ document
         }
         
         postData(CREATE_URL, tdList);
-
+        todoListInput.value = '';
     }
-});
-
-todoListItem.querySelectorAll('.fa-trash-alt').forEach(item => {
-    setRemoveListener(item);
 });
