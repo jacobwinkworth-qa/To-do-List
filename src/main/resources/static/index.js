@@ -1,9 +1,15 @@
+// CRUD URLs
+const CREATE_URL = "http://localhost:8081/list/create/";
+const READ_URL = "http://localhost:8081/list/read";
+// const UPDATE_URL
+const DELETE_URL = "http://localhost:8081/list/delete/"
+
 const params = new URLSearchParams(window.location.search);
 
 var todoListItem = document.querySelector('.todo-list');
 var todoListInput = document.querySelector('.todo-list-input');
 
-
+// create
 postData = (url, data) => {
 
     const settings = {
@@ -19,30 +25,34 @@ postData = (url, data) => {
     .then(function(data) {
 
         let newListItem = document.createElement("li");
-        newListItem.innerHTML = "<div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox' />"
-        + data["name"] + "<i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
+        newListItem.setAttribute('id', data['id']);
+        newListItem.innerHTML = "<div class='form-check'> " + data['topic'] + " <i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>"
         todoListItem.append(newListItem);
         todoListInput.value = ("");
+        setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
 
-    })
+    } )
 }
 
+// read
 getData = (url) => {
 
     fetch(url)
     .then(response => response.json())
     .then(function(data) {
         for (let key in data) {
-            console.log(key, data[key]);
             let newListItem = document.createElement("li");
-            newListItem.innerHTML = "<div class='form-check'> List " + data[key]['id'] + " <i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>"
+            newListItem.innerHTML = "<div class='form-check'> " + data[key]['topic'] + " <i class='input-helper'></i></label></div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>"
             todoListItem.append(newListItem);
         };
     })
 
 }
 
-deleteData = (url) => {
+// update
+
+// delete
+deleteData = (url, id) => {
 
     fetch(url + id, {
         method: 'DELETE'
@@ -52,54 +62,37 @@ deleteData = (url) => {
 
 }
 
-setCheckboxListener = (item) => {
-
-    item.addEventListener('change', function () {
-        if (this.getAttribute('checked')) {
-            this.removeAttribute('checked');
-        } else {
-            this.setAttribute('checked', 'checked');
-        }
-        this.closest("li").classList.toggle('completed');
-    });
-
-}
-
 setRemoveListener = (item) => {
 
     item.addEventListener('click', function() {
+        let id = this.parentElement.id;
         this.parentElement.remove();
-        deleteData('http://localhost:8081/task/delete/', 1)
+        deleteData(DELETE_URL, id)
     });
 
 }
 
+// populate list
+getData(READ_URL);
+
+// set listeners
 document
 .querySelector('.todo-list-add-btn')
 .addEventListener("click", function(event) {
     event.preventDefault();
 
-    let newItem = todoListInput.value;
+    let newItem = todoListInput.value;  // post
 
     if (newItem) {
 
         // data
-        const task = {
-            "name": newItem,
-            "tdList": {
-                "id": params.get('id')
-            }
+        const tdList = {
+            "topic": newItem
         }
+        
+        postData(CREATE_URL, tdList);
 
-        postData('http://localhost:8081/task/create/', task);
-
-        setCheckboxListener(newListItem.querySelector('.checkbox'));
-        setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
     }
-});
-
-todoListItem.querySelectorAll('.checkbox').forEach(item => {
-    setCheckboxListener(item);
 });
 
 todoListItem.querySelectorAll('.fa-trash-alt').forEach(item => {
