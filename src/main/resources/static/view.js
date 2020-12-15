@@ -1,10 +1,10 @@
 // base URL
 const BASE_URL = "http://localhost:8081/";
 // CRUD URLs
-const CREATE_URL = BASE_URL + "list/create/";
+const CREATE_URL = BASE_URL + "task/create/";
 const READ_URL = BASE_URL + "list/read/";
-const PARTIAL_UPDATE_URL = BASE_URL + "list/patch/"
-const DELETE_URL = BASE_URL + "list/delete/"
+const PARTIAL_UPDATE_URL = BASE_URL + "task/patch/"
+const DELETE_URL = BASE_URL + "task/delete/"
 
 const params = new URLSearchParams(window.location.search);
 
@@ -28,31 +28,41 @@ postData = (url, data) => {
 
         let newListItem = document.createElement("li");
         newListItem.setAttribute('id', data['id']);
-        let redirect = BASE_URL + "view.html?id=" + data['id'];
-        newListItem.innerHTML = "<div class='form-check'> <a href='"+redirect+"'>" + data['topic'] + "</a> </div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
+        newListItem.innerHTML = "<div class='form-check'>" +
+        "<label class='form-check-label'><input class='checkbox' type='checkbox'>" + data['name'] + 
+        "<i class='input-helper'></i></label></div>" + 
+        "<i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
         todoListItem.append(newListItem);
 
         setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
         setEditListener(newListItem.querySelector('.fa-edit'));
+        setCheckboxListener(newListItem.querySelector('.checkbox'));
     } )
 }
 
-// read
+// read one list
 getData = (url) => {
 
-    fetch(url)
+    fetch(url + params.get('id'))
     .then(response => response.json())
     .then(function(data) {
-        for (let key in data) {
+        document.querySelector('.card-title').innerHTML = data['topic'];
+        console.log(data['topic']);
+        let tasks = data['tasks'];
+        for (let key in tasks) {
+
             let newListItem = document.createElement("li");
-            let id = data[key]['id'];
-            newListItem.setAttribute('id', id);
-            let redirect = BASE_URL + "view.html?id=" + id;
-            newListItem.innerHTML = "<div class='form-check'> <a href='"+redirect+"'>" + data[key]['topic'] + "</a> </div> <i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>"
+            newListItem.setAttribute('id', tasks[key]['id']);
+            newListItem.innerHTML = "<div class='form-check'>" + 
+            "<label class='form-check-label'><input class='checkbox' type='checkbox'>" + tasks[key]['name'] + 
+            "<i class='input-helper'></i></label></div> " + 
+            "<i class='fas fa-edit'></i> <i class='fas fa-trash-alt'></i>";
             todoListItem.append(newListItem);
 
             setRemoveListener(newListItem.querySelector('.fa-trash-alt'));
             setEditListener(newListItem.querySelector('.fa-edit'));
+            setCheckboxListener(newListItem.querySelector('.checkbox'));
+
         };
     })
 
@@ -87,23 +97,39 @@ deleteData = (url, id) => {
 }
 
 // item listeners
+
+setCheckboxListener = (item) => {
+
+    item.addEventListener('change', function () {
+        if (this.getAttribute('checked')) {
+            this.removeAttribute('checked');
+        } else {
+            this.setAttribute('checked', 'checked');
+        }
+        this.closest("li").classList.toggle('completed');
+    });
+
+}
+
 setEditListener = (item) => {
 
     item.addEventListener('click', function() {
 
-        let topic = prompt("Please enter a new list name");
+        let name = prompt("Please enter a new task name");
 
         data = {
-            "topic": topic,
+            "name": name
         }
         
         let id = this.parentElement.id;
 
         partialUpdateData(PARTIAL_UPDATE_URL, id, data);
 
-        this.parentElement.querySelector('a').textContent = topic;
-    });
+        console.log(this.parentElement.querySelector('.form-check-label').textContent);
 
+        let label = this.parentElement.querySelector('.form-check-label');
+        label.childNodes[1].textContent = name;
+    });
 }
 
 setRemoveListener = (item) => {
@@ -119,7 +145,7 @@ setRemoveListener = (item) => {
 // populate list
 getData(READ_URL);
 
-// button listener
+// set listeners
 document
 .querySelector('.todo-list-add-btn')
 .addEventListener("click", function(event) {
@@ -131,7 +157,10 @@ document
 
         // data
         const tdList = {
-            "topic": newItem
+            "name": newItem,
+            "tdList": {
+                "id": params.get('id')
+            }
         }
         
         postData(CREATE_URL, tdList);
