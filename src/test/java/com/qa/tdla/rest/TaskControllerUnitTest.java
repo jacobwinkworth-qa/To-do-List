@@ -19,7 +19,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.qa.tdla.dto.TaskDTO;
 import com.qa.tdla.persistence.domain.Task;
-import com.qa.tdla.rest.TaskController;
 import com.qa.tdla.service.TaskService;
 
 @SpringBootTest
@@ -76,16 +75,16 @@ class TaskControllerUnitTest {
 		verify(this.service, atLeastOnce()).readOne(TEST_TASK_1.getId());
 	}
 
-	// update
+	// (partial) update
 	@Test
-	void partialUpdateTest() throws Exception {
+	void partialUpdateNameTest() throws Exception {
 		when(this.service.partialUpdateName(this.mapToDto(TEST_TASK_1), TEST_TASK_1.getId())).thenReturn(this.mapToDto(TEST_TASK_1));
 		assertThat(new ResponseEntity<TaskDTO>(this.mapToDto(TEST_TASK_1), HttpStatus.ACCEPTED))
 				.isEqualTo(this.controller.partialUpdateName(TEST_TASK_1.getId(), this.mapToDto(TEST_TASK_1)));
 		verify(this.service, atLeastOnce()).partialUpdateName(this.mapToDto(TEST_TASK_1), TEST_TASK_1.getId());
 	}
 
-	// delete
+	// delete success
 	@Test
 	void deleteSuccessTest() throws Exception {
 		when(this.service.delete(TEST_TASK_1.getId())).thenReturn(true);
@@ -95,7 +94,7 @@ class TaskControllerUnitTest {
 
 	}
 	
-	// delete
+	// delete failure
 	@Test
 	void deleteFailureTest() throws Exception {
 		when(this.service.delete(TEST_TASK_1.getId())).thenReturn(false);

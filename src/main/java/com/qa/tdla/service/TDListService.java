@@ -54,7 +54,7 @@ public class TdListService {
 //		return this.mapToDTO(this.repo.save(toUpdate));
 //	}
 	
-	// patch
+	// (partial) update
 	public TdListDTO partialUpdateTopic(TdListDTO tdListDTO, Long id) {
 		TdList toUpdate = this.repo.findById(id).orElseThrow();
 		toUpdate.setTopic(tdListDTO.getTopic());

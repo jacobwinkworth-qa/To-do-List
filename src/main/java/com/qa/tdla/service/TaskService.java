@@ -57,7 +57,7 @@ public class TaskService {
 //
 //	}
 	
-	// patch
+	// (partial) update
 	public TaskDTO partialUpdateName(TaskDTO taskDto, Long id) {
 		Task toUpdate = this.repo.findById(id).orElseThrow();
 		toUpdate.setName(taskDto.getName());

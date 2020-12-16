@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.qa.tdla.dto.TdListDTO;
-import com.qa.tdla.dto.TdListDTO;
 import com.qa.tdla.persistence.domain.TdList;
 import com.qa.tdla.service.TdListService;
 
@@ -76,9 +75,9 @@ class TdListControllerUnitTest {
 		verify(this.service, atLeastOnce()).readOne(TEST_TD_LIST_1.getId());
 	}
 
-	// update
+	// (partial) update
 	@Test
-	void partialUpdateTest() throws Exception {
+	void partialUpdateTopicTest() throws Exception {
 		when(this.service.partialUpdateTopic(this.mapToDto(TEST_TD_LIST_1), TEST_TD_LIST_1.getId())).thenReturn(this.mapToDto(TEST_TD_LIST_1));
 		assertThat(new ResponseEntity<TdListDTO>(this.mapToDto(TEST_TD_LIST_1), HttpStatus.ACCEPTED))
 				.isEqualTo(this.controller.partialUpdateTopic(TEST_TD_LIST_1.getId(), this.mapToDto(TEST_TD_LIST_1)));

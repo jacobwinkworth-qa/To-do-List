@@ -115,7 +115,7 @@ class TdListControllerIntegrationTest {
 	
 	// (partial) update
 	@Test
-	void partialUpdateNameTest() throws Exception {
+	void partialUpdateTopicTest() throws Exception {
 		
 		Long id = 1L;
 		
