@@ -48,14 +48,14 @@ public class TaskService {
 		return this.mapToDTO(this.repo.findById(id).orElseThrow());
 	}
 	
-	// update
-	public TaskDTO update(TaskDTO taskDto, Long id) {
-		Task toUpdate = this.repo.findById(id).orElseThrow();
-		toUpdate.setName(taskDto.getName());
-		SpringBeanUtil.mergeNotNull(taskDto, toUpdate);
-		return this.mapToDTO(this.repo.save(toUpdate));
-
-	}
+//	// update
+//	public TaskDTO update(TaskDTO taskDto, Long id) {
+//		Task toUpdate = this.repo.findById(id).orElseThrow();
+//		toUpdate.setName(taskDto.getName());
+//		SpringBeanUtil.mergeNotNull(taskDto, toUpdate);
+//		return this.mapToDTO(this.repo.save(toUpdate));
+//
+//	}
 	
 	// patch
 	public TaskDTO partialUpdateName(TaskDTO taskDto, Long id) {

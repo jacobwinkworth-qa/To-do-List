@@ -55,11 +55,11 @@ public class TdListController {
 		return ResponseEntity.ok(this.service.readOne(id));
 	}
 
-	// update
-	@PutMapping("/update/{id}")
-	public ResponseEntity<TdListDTO> update(@PathVariable Long id, @RequestBody TdListDTO tdListDTO) {
-		return new ResponseEntity<>(this.service.update(tdListDTO, id), HttpStatus.ACCEPTED);
-	}
+//	// update
+//	@PutMapping("/update/{id}")
+//	public ResponseEntity<TdListDTO> update(@PathVariable Long id, @RequestBody TdListDTO tdListDTO) {
+//		return new ResponseEntity<>(this.service.update(tdListDTO, id), HttpStatus.ACCEPTED);
+//	}
 	
 	// patch
 	@PatchMapping("/patch/{id}")
@@ -71,7 +71,7 @@ public class TdListController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<TdListDTO> delete(@PathVariable Long id) {
 		return this.service.delete(id) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
-				: new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

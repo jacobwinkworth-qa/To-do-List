@@ -55,11 +55,11 @@ public class TaskController {
 		return ResponseEntity.ok(this.service.readOne(id));
 	}
 
-	// update
-	@PutMapping("/update/{id}")
-	public ResponseEntity<TaskDTO> update(@PathVariable Long id, @RequestBody TaskDTO taskDTO) {
-		return new ResponseEntity<>(this.service.update(taskDTO, id), HttpStatus.ACCEPTED);
-	}
+//	// update
+//	@PutMapping("/update/{id}")
+//	public ResponseEntity<TaskDTO> update(@PathVariable Long id, @RequestBody TaskDTO taskDTO) {
+//		return new ResponseEntity<>(this.service.update(taskDTO, id), HttpStatus.ACCEPTED);
+//	}
 	
 	// patch
 	@PatchMapping("/patch/{id}")
