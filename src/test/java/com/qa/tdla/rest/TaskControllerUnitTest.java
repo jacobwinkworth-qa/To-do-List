@@ -96,13 +96,13 @@ class TaskControllerUnitTest {
 	}
 	
 	// delete
-		@Test
-		void deleteFailureTest() throws Exception {
-			when(this.service.delete(TEST_TASK_1.getId())).thenReturn(false);
-			assertThat(this.controller.delete(TEST_TASK_1.getId()))
-					.isEqualTo(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-			verify(this.service, atLeastOnce()).delete(TEST_TASK_1.getId());
+	@Test
+	void deleteFailureTest() throws Exception {
+		when(this.service.delete(TEST_TASK_1.getId())).thenReturn(false);
+		assertThat(this.controller.delete(TEST_TASK_1.getId()))
+				.isEqualTo(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+		verify(this.service, atLeastOnce()).delete(TEST_TASK_1.getId());
 
-		}
+	}
 
 }
