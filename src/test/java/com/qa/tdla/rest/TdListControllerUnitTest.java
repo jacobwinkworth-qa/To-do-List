@@ -84,7 +84,7 @@ class TdListControllerUnitTest {
 		verify(this.service, atLeastOnce()).partialUpdateTopic(this.mapToDto(TEST_TD_LIST_1), TEST_TD_LIST_1.getId());
 	}
 
-	// delete
+	// delete success
 	@Test
 	void deleteSuccessTest() throws Exception {
 		when(this.service.delete(TEST_TD_LIST_1.getId())).thenReturn(true);
@@ -94,7 +94,7 @@ class TdListControllerUnitTest {
 
 	}
 	
-	// delete
+	// delete failure
 	@Test
 	void deleteFailureTest() throws Exception {
 		when(this.service.delete(TEST_TD_LIST_1.getId())).thenReturn(false);
@@ -103,6 +103,5 @@ class TdListControllerUnitTest {
 		verify(this.service, atLeastOnce()).delete(TEST_TD_LIST_1.getId());
 
 		}
-
 
 }
