@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### docs ###
+*.pptx
+
 ### STS ###
 .apt_generated
 .classpath
