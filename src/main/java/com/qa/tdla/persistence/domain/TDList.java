@@ -1,5 +1,6 @@
 package com.qa.tdla.persistence.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -38,11 +39,13 @@ public class TdList {
 		super();
 		this.id = id;
 		this.topic = topic;
+		this.tasks = new ArrayList<>();
 	}
 	
 	public TdList(String topic) {
 		super();
 		this.topic = topic;
+		this.tasks = new ArrayList<>();
 	}
 
 }

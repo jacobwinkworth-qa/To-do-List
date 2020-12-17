@@ -41,19 +41,19 @@ class TdListServiceUnitTest {
 	
 	private final List<TdList> LIST_OF_TD_LISTS = List.of(TEST_TD_LIST_1, TEST_TD_LIST_2, TEST_TD_LIST_3, TEST_TD_LIST_4);
 	
-	private TdListDTO mapToDTO(TdList task) {
-		return this.mapper.map(task, TdListDTO.class);		
+	private TdListDTO mapToDTO(TdList tdList) {
+		return this.mapper.map(tdList, TdListDTO.class);		
 	}
 	
 	// create
 	@Test
 	void createTest() {
-		TdList newTaskNoId = new TdList("workout");
-		TdList newTask = new TdList(5L, "workout");
-		when(this.repo.save(newTaskNoId)).thenReturn(newTask);
-		assertThat(this.service.create(newTaskNoId))
-				.isEqualTo(this.mapToDTO(newTask));
-		verify(this.repo, atLeastOnce()).save(newTaskNoId);
+		TdList newTdListNoId = new TdList("workout");
+		TdList newTdList = new TdList(5L, "workout");
+		when(this.repo.save(newTdListNoId)).thenReturn(newTdList);
+		assertThat(this.service.create(newTdListNoId))
+				.isEqualTo(this.mapToDTO(newTdList));
+		verify(this.repo, atLeastOnce()).save(newTdListNoId);
 	}
 	
 	// read all
@@ -61,16 +61,16 @@ class TdListServiceUnitTest {
 	void readAllTest() {
 		when(this.repo.findAll()).thenReturn(LIST_OF_TD_LISTS);
 		
-		List<TdListDTO> listOfTaskDTOs = LIST_OF_TD_LISTS.stream().map(this::mapToDTO)
+		List<TdListDTO> listOfTdListDTOs = LIST_OF_TD_LISTS.stream().map(this::mapToDTO)
 				.collect(Collectors.toList());
 		
-		assertThat(this.service.readAll()).isEqualTo(listOfTaskDTOs);
+		assertThat(this.service.readAll()).isEqualTo(listOfTdListDTOs);
 		verify(this.repo, atLeastOnce()).findAll();
 	}
 	
 	// read one
 	@Test
-	void readOneTest() {
+	void readOneTest() throws Exception {
 		Long id = 1L;
 		when(this.repo.findById(id)).thenReturn(Optional.of(TEST_TD_LIST_1));
 		assertThat(this.service.readOne(id))
@@ -80,7 +80,7 @@ class TdListServiceUnitTest {
 	
 	// (partial) update
 	@Test
-	void partialUpdateNameTest() {
+	void partialUpdateNameTest() throws Exception {
 		Long id = 1L;
 		
 		TdList updated = new TdList(id, "water plants");
@@ -98,7 +98,7 @@ class TdListServiceUnitTest {
 	
 	// delete success
 	@Test
-	void deleteSuccessTest() {
+	void deleteSuccessTest() throws Exception {
 		Long id = 1L;
 		when(this.repo.existsById(id)).thenReturn(false);
 		assertThat(this.service.delete(id)).isEqualTo(true);
@@ -107,7 +107,7 @@ class TdListServiceUnitTest {
 	
 	// delete failure
 	@Test
-	void deleteFailureTest() {
+	void deleteFailureTest() throws Exception {
 		Long id = 1L;
 		when(this.repo.existsById(id)).thenReturn(true);
 		assertThat(this.service.delete(id)).isEqualTo(false);

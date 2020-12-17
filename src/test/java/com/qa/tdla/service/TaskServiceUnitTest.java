@@ -47,7 +47,7 @@ class TaskServiceUnitTest {
 	
 	// create
 	@Test
-	void createTest() {
+	void createTest() throws Exception {
 		Task newTaskNoId = new Task("workout");
 		Task newTask = new Task(5L, "workout");
 		when(this.repo.save(newTaskNoId)).thenReturn(newTask);
@@ -58,7 +58,7 @@ class TaskServiceUnitTest {
 	
 	// read all
 	@Test
-	void readAllTest() {
+	void readAllTest() throws Exception {
 		when(this.repo.findAll()).thenReturn(LIST_OF_TASKS);
 		
 		List<TaskDTO> listOfTaskDTOs = LIST_OF_TASKS.stream().map(this::mapToDTO)
@@ -70,7 +70,7 @@ class TaskServiceUnitTest {
 	
 	// read one
 	@Test
-	void readOneTest() {
+	void readOneTest() throws Exception {
 		Long id = 1L;
 		when(this.repo.findById(id)).thenReturn(Optional.of(TEST_TASK_1));
 		assertThat(this.service.readOne(id))
@@ -80,7 +80,7 @@ class TaskServiceUnitTest {
 	
 	// (partial) update
 	@Test
-	void partialUpdateNameTest() {
+	void partialUpdateNameTest() throws Exception {
 		Long id = 1L;
 		
 		Task updated = new Task(id, "water plants");
@@ -98,7 +98,7 @@ class TaskServiceUnitTest {
 	
 	// delete success
 	@Test
-	void deleteSuccessTest() {
+	void deleteSuccessTest() throws Exception {
 		Long id = 1L;
 		when(this.repo.existsById(id)).thenReturn(false);
 		assertThat(this.service.delete(id)).isEqualTo(true);
@@ -107,7 +107,7 @@ class TaskServiceUnitTest {
 	
 	// delete failure
 	@Test
-	void deleteFailureTest() {
+	void deleteFailureTest() throws Exception {
 		Long id = 1L;
 		when(this.repo.existsById(id)).thenReturn(true);
 		assertThat(this.service.delete(id)).isEqualTo(false);

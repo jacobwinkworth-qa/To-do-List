@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.tdla.dto.TdListDTO;
-import com.qa.tdla.persistence.domain.Task;
 import com.qa.tdla.persistence.domain.TdList;
 
 @SpringBootTest
@@ -79,11 +78,6 @@ class TdListControllerIntegrationTest {
 	@Test
 	void readAllTest() throws Exception {
 		
-		TEST_TD_LIST_1.setTasks(List.of(new Task(1L, "water dog")));
-		TEST_TD_LIST_2.setTasks(List.of(new Task(2L, "walk plants")));
-		TEST_TD_LIST_3.setTasks(List.of(new Task(3L, "5k run")));
-		TEST_TD_LIST_4.setTasks(List.of(new Task(4L, "meal prep")));
-		
 		RequestBuilder request = get(URI + "/read").contentType(MediaType.APPLICATION_JSON);
 		ResultMatcher checkStatus = status().isOk();
 		
@@ -99,8 +93,6 @@ class TdListControllerIntegrationTest {
 	void readOneTest() throws Exception {
 		
 		Long id = 1L;
-		
-		TEST_TD_LIST_1.setTasks(List.of(new Task(1L, "water dog")));
 		
 		RequestBuilder request = get(URI + "/read/" + id).contentType(MediaType.APPLICATION_JSON);
 		ResultMatcher checkStatus = status().isOk();
@@ -120,7 +112,6 @@ class TdListControllerIntegrationTest {
 		Long id = 1L;
 		
 		TdList updated = new TdList("today's list");
-		updated.setTasks(List.of(new Task(1L, "water dog")));
 		
 		TdListDTO testDTO = mapToDto(updated);
 		String testDTOAsJSON = this.jsonifier.writeValueAsString(testDTO);
@@ -129,7 +120,6 @@ class TdListControllerIntegrationTest {
 		ResultMatcher checkStatus = status().isAccepted();
 		
 		TdList saved = new TdList("today's list");
-		saved.setTasks(List.of(new Task(1L, "water dog")));
 		
 		TdListDTO testSavedDTO = mapToDto(saved);
 		testSavedDTO.setId(id);
