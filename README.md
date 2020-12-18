@@ -24,7 +24,7 @@ A step by step of how to set up a development environment.
 In your desired directory run:
 
 ```
- git clone https://github.com/JasonFyfe/to-do-project.git
+ git clone https://github.com/JacobWinkworth/tdla.git
 ```
 
 ## Spring Tool Suite
