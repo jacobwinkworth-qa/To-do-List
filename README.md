@@ -45,7 +45,7 @@ On the Import Dialog: Select 'Directory...'
 ```
 Using the File Explorer, locate where you cloned the project and select the folder.
 ```
-### Run the Project<a name="S_Run"></a>
+### Run the Project
 ```
 Right-Click the Project > Run As > Spring Boot App
 ```
