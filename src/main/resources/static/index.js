@@ -8,6 +8,7 @@ const DELETE_URL = BASE_URL + "list/delete/"
 
 const params = new URLSearchParams(window.location.search);
 
+var todoListForm = document.querySelector('.form');
 var todoListItem = document.querySelector('.todo-list');
 var todoListInput = document.querySelector('.todo-list-input');
 
@@ -116,13 +117,20 @@ setRemoveListener = (item) => {
 
 }
 
+// create new list on load (only executes once, unless user clears local storage)
+window.onload = function () {
+    if (localStorage.getItem("newListCreated") === null) {
+        postData(CREATE_URL, { "topic": "new list" });
+        localStorage.setItem("newListCreated", true);
+    }
+}
+
 // populate list
 getData(READ_URL);
 
 // button listener
-document
-.querySelector('.todo-list-add-btn')
-.addEventListener("click", function(event) {
+todoListForm
+.addEventListener("submit", function(event) {
     event.preventDefault();
 
     let newItem = todoListInput.value;  // post
