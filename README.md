@@ -30,6 +30,12 @@ In a location of you choice, run:
  git clone https://github.com/JacobWinkworth/tdla.git
 ```
 
+## Run the JAR
+
+```
+./docs/java -jar tdla-0.0.1-SNAPSHOT.jar
+```
+
 ## Spring Tool Suite
 Instructions for opening the project with Eclipse.
 
