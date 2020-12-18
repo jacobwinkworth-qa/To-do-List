@@ -58,3 +58,11 @@ Right-Click the Project > Run As > Spring Boot App
 ```
 Navigate to http://localhost:8081/ in your browser.
 ```
+
+---
+**NOTE**
+
+When running from Spring, there may be issues with filenames. These can be fixed simply by following the
+error trace and renaming the appropriate classes. This was unresolvable.
+
+---
