@@ -30,7 +30,7 @@ In a location of you choice, run:
  git clone https://github.com/JacobWinkworth/tdla.git
 ```
 
-## Run the JAR
+#### Running the JAR
 
 ```
 java -jar ./docs/tdla-0.0.1-SNAPSHOT.jar
