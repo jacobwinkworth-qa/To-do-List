@@ -33,7 +33,7 @@ In a location of you choice, run:
 ## Run the JAR
 
 ```
-./docs/java -jar tdla-0.0.1-SNAPSHOT.jar
+java -jar ./docs/tdla-0.0.1-SNAPSHOT.jar
 ```
 
 ## Spring Tool Suite
