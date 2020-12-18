@@ -1,5 +1,8 @@
 # To-do List Application
 
+A small to-do list application utilising a Java and Sprint backend, with a simple HTML, CSS and JS frontend. 
+Bootstrap was also used for added flavour. 
+
 # Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -21,7 +24,7 @@ Spring Tool Suite
 A step by step of how to set up a development environment.
 
 #### Clone the Repository
-In your desired directory run:
+In a location of you choice, run:
 
 ```
  git clone https://github.com/JacobWinkworth/tdla.git
